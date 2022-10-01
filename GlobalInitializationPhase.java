@@ -7,7 +7,7 @@ public class GlobalInitializationPhase {
 	private ECC ec;
 	private Pair bp;
 	private ArrayList<String>attributes=new ArrayList<>();
-	private HashMap<Integer,Integer>H=new HashMap<>();
+	private HashMap<Integer,ArrayList<Integer>>H=new HashMap<>();
 	private int countLatest=0;
 	GlobalInitializationPhase(int a,int b, int q,ArrayList<String>attr){
 		this.a=a;
@@ -20,13 +20,23 @@ public class GlobalInitializationPhase {
 //		}
 		ec.EccPointGen();
 		bp =ec.findBasePoint();
-		ec.PrintMap(ec.pt);
+//		ec.PrintMap(ec.pt);
 		System.out.println(" Base Point : "+bp.x + " , "+ bp.y);
 		ec.PrintMap(ec.subgrouppt);
 	}
 	void HashUser(int id) {
-		countLatest++;
-		H.put(countLatest, id);
+		int val=id % ec.randomVal.size();
+		int hashId=ec.randomVal.get(val);
+		if(!H.containsKey(hashId)) {
+			ArrayList<Integer>tempuser=new ArrayList<>();
+			tempuser.add(id);
+			H.put(hashId, tempuser);
+		}
+		else {
+			ArrayList<Integer>tempuser=H.get(hashId);
+			tempuser.add(id);
+			H.put(hashId,tempuser);
+		}
 	}
 	void setPP() {
 		PP.add(ec.subgrouppt);
