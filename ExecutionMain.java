@@ -5,14 +5,18 @@ public class ExecutionMain {
 		ArrayList<String>attr=new ArrayList<>();
 		attr.add("ComputerScince");
 		attr.add("Studnet");
+		AccessPolicy ap=new AccessPolicy();
 		//****************** GLOBAL INITIALIZATION PHASE STARTED ********************
-		GlobalInitializationPhase sc=new GlobalInitializationPhase(1,1,97,attr);
+		GlobalInitializationPhase sc=new GlobalInitializationPhase(7,17,2969,attr);
 		sc.HashUser(101);
 		sc.setPP();
 		ArrayList<Object>PP=sc.getPP();
 //		for(Object c:PP) {
 //			System.out.println(c);
 //		}
+		ECC er=(ECC) PP.get(2);
+		System.out.println("*******************************************************");
+		er.PrintMap(er.pt);
 		//****************** GLOBAL INITIALIZATION PHASE COMPLETED ********************
 		
 		//****************** AUTHORITY INITIALIZATION PHASE STARTED ********************
@@ -31,5 +35,8 @@ public class ExecutionMain {
 		de.createHCT();
 		System.out.println(" HCDATA : "+de.getHCTDATA());
 		System.out.println(" HCDATA : "+de.getHCT().x + " "+de.getHCT().y);
+		de.cpabeEnc();
+		
+		
 	}
 }
