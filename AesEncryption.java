@@ -16,7 +16,7 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException; 
 
 public class AesEncryption {
-	  private  String SECRET_KEY = "123456789";  
+	  private  String SECRET_KEY = "AESENCRYPTION";  
 	    private  String SALTVALUE = "myAES";  
 	    
 	    public  String encrypt(String strToEncrypt)   
@@ -71,4 +71,8 @@ public class AesEncryption {
 	    }  
 	    return null;  
 	    }  
+	    
+	    String getSecretKey() {
+	    	return SECRET_KEY;
+	    }
 }
