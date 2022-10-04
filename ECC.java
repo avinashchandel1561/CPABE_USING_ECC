@@ -8,6 +8,7 @@ public class ECC{
 	HashMap<Pair,Pair> subgrouppt=new HashMap<>();
 //	HashMap<Integer,Integer>inverses=new HashMap<>();
 	ArrayList<Integer>randomVal=new ArrayList<>();
+	private final String keyHash="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	
 	ECC(int a,int b,int q){
 		this.a=a;
@@ -205,7 +206,7 @@ public class ECC{
 		}
 		return Integer.MAX_VALUE;
 	}
-	private int findPos(int n) {
+	 int findPos(int n) {
 		while(n<0) {
 			n +=q;
 		}
@@ -252,6 +253,41 @@ public class ECC{
         }
         return true;
     }
+	
+	Pair textToPoint(String text) {
+		Pair p=new Pair(Integer.MAX_VALUE,Integer.MAX_VALUE);
+		int M=0;
+		for(int i=0;i<text.length();i++) {
+			M=M+keyHash.indexOf(text.charAt(i));
+//			System.out.println(M);
+		}
+		int k=10;
+		for(;(M+1)*k < q;k++) {
+			
+		}
+//		System.out.println(M+"  K= "+k);
+		int x,y;
+		int tempk=k;
+		while(k>10) {
+		for(int j=0;j<k;j++) {
+			x=((M*k)+j)%q;
+			int xc=(int)Math.pow(x, 3);
+			int w=(xc+(a*x)+b)%q;
+			int wr=find_sq(w);
+			if(!(wr==0 || (q-wr)==0)) {
+				if(wr!=Integer.MAX_VALUE)
+				{
+//					System.out.println(k);
+					return new Pair(x,wr);
+				}
+			
+			}
+		}
+		k--;
+		}
+		return p;
+	
+}
 }
 class Pair{
 	int x,y;
